@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="10dp"
-    android:shape="rectangle">
-
-    <solid android:color="#ff00719b" />
-
-</shape><!-- From: file:/C:/Users/Nishanth%20KL/AndroidStudioProjects/LastMile/app/src/main/res/layout/round_button_pressed.xml -->
