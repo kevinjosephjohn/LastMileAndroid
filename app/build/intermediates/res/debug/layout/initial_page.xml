@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.xirb.MainActivity$PlaceholderFragment">
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/background" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logo" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:background="@layout/button_states"
+        android:text="Login"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/started_button"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:layout_above="@id/login_button"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="22dp"
+        android:layout_marginRight="22dp"
+        android:background="@layout/button_states"
+        android:text="Get Started"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout><!-- From: file:/C:/Users/Nishanth%20KL/AndroidStudioProjects/LastMile/app/src/main/res/layout/initial_page.xml -->

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/hamburger"
+        android:layout_width="25dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:onClick="hamburger"
+        android:src="@drawable/hamburger" />
+
+    <TextView
+        android:id="@+id/pickuplocation"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+
+        android:layout_toRightOf="@id/hamburger"
+        android:textColor="#7BB46D" />
+
+    <TextView
+        android:id="@+id/StreetName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/pickuplocation"
+
+        android:layout_below="@id/pickuplocation"
+        android:text="LOADING..."
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+</RelativeLayout><!-- From: file:/C:/Users/Nishanth%20KL/AndroidStudioProjects/LastMile/app/src/main/res/layout/card_location.xml -->

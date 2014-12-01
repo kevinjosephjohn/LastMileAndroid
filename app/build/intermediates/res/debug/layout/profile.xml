@@ -1,0 +1,190 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.lastmile.MainActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EFEFEF">
+
+            <TextView
+                android:id="@+id/details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="14dp"
+                android:layout_marginTop="14dp"
+                android:text="SIGN IN DETAILS" />
+
+            <View
+                android:id="@+id/whitearea1"
+                android:layout_width="fill_parent"
+                android:layout_height="120dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/details"
+                android:layout_marginTop="14dp"
+                android:background="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/emailid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/whitearea1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/mailicon"
+                android:text="kvyn.14@gmail.com" />
+
+            <TextView
+                android:id="@+id/emailname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/emailid"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/mailicon"
+                android:text="EMAIL ID" />
+
+            <TextView
+                android:id="@+id/pwdtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/emailname"
+                android:layout_below="@+id/stars"
+                android:text="CHANGE PASSWORD" />
+
+            <View
+                android:id="@+id/divider1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/emailname"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/mailicon"
+                android:background="@android:color/darker_gray" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/extendeddetails"
+                android:layout_marginTop="14dp"
+                android:background="#FFFFFF" />
+
+            <ImageView
+                android:id="@+id/mailicon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/divider1"
+                android:layout_alignLeft="@+id/details"
+                android:src="@drawable/mail" />
+
+            <TextView
+                android:id="@+id/nametext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/name"
+                android:layout_below="@+id/name"
+                android:text="NAME" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/nametext"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/usericon"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/phonetext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/number"
+                android:layout_below="@+id/number"
+                android:text="PHONE" />
+
+            <TextView
+                android:id="@+id/stars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/pwdtext"
+                android:layout_below="@+id/divider1"
+                android:layout_marginTop="10dp"
+                android:text="*******" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/pwdtext"
+                android:layout_alignTop="@+id/view2"
+                android:layout_marginTop="10dp"
+                android:text="Kevin" />
+
+            <TextView
+                android:id="@+id/number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/nametext"
+                android:layout_alignTop="@+id/phoneicon"
+                android:text="9841417790" />
+
+            <ImageView
+                android:id="@+id/usericon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/divider2"
+                android:layout_toLeftOf="@+id/divider1"
+                android:src="@drawable/user" />
+
+            <ImageView
+                android:id="@+id/lockicon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/stars"
+                android:layout_toLeftOf="@+id/divider1"
+                android:src="@drawable/lock" />
+
+            <ImageView
+                android:id="@+id/phoneicon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/usericon"
+                android:layout_below="@+id/divider2"
+                android:src="@drawable/phone" />
+
+            <TextView
+                android:id="@+id/extendeddetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/usericon"
+                android:layout_below="@+id/pwdtext"
+                android:layout_marginTop="30dp"
+                android:text="MY DETAILS" />
+        </RelativeLayout>
+    </FrameLayout>
+    <!-- The navigation drawer -->
+
+    <ListView
+        android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="#101125"
+        android:choiceMode="singleChoice"
+        android:divider="@null"
+        android:scrollingCache="false" />
+
+</android.support.v4.widget.DrawerLayout><!-- From: file:/C:/Users/Nishanth%20KL/AndroidStudioProjects/LastMile/app/src/main/res/layout/profile.xml -->

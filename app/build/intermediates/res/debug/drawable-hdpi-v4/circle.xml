@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <size
+        android:width="60dp"
+        android:height="60dp" />
+
+    <stroke
+        android:width="0.5dp"
+        android:color="#3cb1d8" />
+
+    <solid android:color="@android:color/transparent" />
+
+</shape><!-- From: file:/C:/Users/Nishanth%20KL/AndroidStudioProjects/LastMile/app/src/main/res/drawable-hdpi/circle.xml -->

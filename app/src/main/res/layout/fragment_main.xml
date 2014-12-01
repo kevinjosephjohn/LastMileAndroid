@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/testinglayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <it.gmariotti.cardslib.library.view.CardViewNative
+        android:id="@+id/carddemo"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="12dp"
+
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        card:card_layout_resourceID="@layout/card_location" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="100dp">
+
+        <ImageView
+            android:id="@+id/pin"
+            android:layout_width="92dp"
+            android:layout_height="92dp"
+            android:layout_centerInParent="True"
+            android:src="@drawable/pin_green" />
+
+        <ImageView
+            android:id="@+id/pin_red"
+            android:layout_width="92dp"
+            android:layout_height="92dp"
+            android:layout_centerInParent="True"
+            android:src="@drawable/pin_red" />
+
+        <TextView
+            android:id="@+id/ETA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="True"
+            android:paddingBottom="45dp"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/ETA_TEXT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="True"
+            android:paddingBottom="25dp"
+            android:textColor="@android:color/white"
+            android:textSize="10sp" />
+    </RelativeLayout>
+
+    <com.dd.CircularProgressButton
+        android:id="@+id/pickup_button"
+        android:layout_width="196dp"
+        android:layout_height="64dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:cpb_colorIndicator="#24960b"
+        app:cpb_colorProgress="#000000"
+        app:cpb_cornerRadius="48dp"
+        app:cpb_textComplete="BOOKED"
+        app:cpb_textError="TRY AGAIN"
+        app:cpb_textIdle="REQUEST PICKUP" />
+
+
+    <ImageView
+        android:id="@+id/current_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="25dp"
+        android:src="@drawable/location" />
+
+    <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
+    <!--android:id="@+id/current_location"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/location"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_margin="25dp"-->
+    <!--fab:fab_addButtonColorNormal="#3cb1d8"-->
+    <!--fab:fab_addButtonColorPressed="#ff00719b"-->
+    <!--fab:fab_size="mini"/>-->
+
+</RelativeLayout>
