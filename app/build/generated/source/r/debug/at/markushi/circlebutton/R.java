@@ -8,11 +8,11 @@ package at.markushi.circlebutton;
 
 public final class R {
 	public static final class attr {
-		public static final int cb_color = 0x7f01000f;
-		public static final int cb_pressedRingWidth = 0x7f010010;
+		public static final int cb_color = 0x7f01002e;
+		public static final int cb_pressedRingWidth = 0x7f01002f;
 	}
 	public static final class styleable {
-		public static final int[] CircleButton = { 0x7f01000f, 0x7f010010 };
+		public static final int[] CircleButton = { 0x7f01002e, 0x7f01002f };
 		public static final int CircleButton_cb_color = 0;
 		public static final int CircleButton_cb_pressedRingWidth = 1;
 	}

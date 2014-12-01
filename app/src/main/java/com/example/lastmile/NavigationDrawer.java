@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class NavigationDrawer extends Activity {
+public class NavigationDrawer extends ActionBarActivity {
 
     public DrawerLayout mDrawerLayout;
     SharedPreferences pref;

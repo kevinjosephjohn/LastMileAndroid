@@ -3,6 +3,7 @@ package com.example.lastmile;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 public class ProfileActivity extends NavigationDrawer {
@@ -17,7 +18,8 @@ public class ProfileActivity extends NavigationDrawer {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.profile);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        setSupportActionBar(toolbar);
         emailid = (TextView) findViewById(R.id.emailid);
         name = (TextView) findViewById(R.id.name);
         number = (TextView) findViewById(R.id.number);
