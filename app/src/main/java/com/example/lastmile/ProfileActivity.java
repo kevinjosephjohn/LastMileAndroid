@@ -2,6 +2,7 @@ package com.example.lastmile;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
@@ -20,6 +21,8 @@ public class ProfileActivity extends NavigationDrawer {
         setContentView(R.layout.profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Profile");
+        toolbar.setTitleTextColor(Color.WHITE);
         emailid = (TextView) findViewById(R.id.emailid);
         name = (TextView) findViewById(R.id.name);
         number = (TextView) findViewById(R.id.number);

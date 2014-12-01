@@ -76,14 +76,14 @@
             android:name="com.example.lastmile.ProfileActivity"
             android:screenOrientation="portrait"></activity>
 
-        <!-- AIzaSyBAwmqW79wBosTeTBcH3ww7LxaAvhA2LEU Office -->
+        <!-- AIzaSyBErgRTuPbexNFuVFD37aNkrbP4u6rmoMA Office -->
         <!-- AIzaSyDTig17xZX7cjCRNhXRg__JlowIPFm0jNA House -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyDTig17xZX7cjCRNhXRg__JlowIPFm0jNA" />
+            android:value="AIzaSyBErgRTuPbexNFuVFD37aNkrbP4u6rmoMA" />
 
         <receiver
             android:name=".GcmBroadcastReceiver"
