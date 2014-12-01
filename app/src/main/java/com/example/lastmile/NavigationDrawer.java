@@ -82,6 +82,7 @@ public class NavigationDrawer extends ActionBarActivity {
                         startActivity(new Intent(NavigationDrawer.this,
                                 ProfileActivity.class));
 
+
                     }
                 }.start();
 

@@ -4,10 +4,13 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
-public class ProfileActivity extends NavigationDrawer {
+public class ProfileActivity extends ActionBarActivity {
     TextView emailid, name, number;
     SharedPreferences pref;
     Editor editor;
@@ -21,8 +24,12 @@ public class ProfileActivity extends NavigationDrawer {
         setContentView(R.layout.profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
+
         getSupportActionBar().setTitle("Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         toolbar.setTitleTextColor(Color.WHITE);
+
         emailid = (TextView) findViewById(R.id.emailid);
         name = (TextView) findViewById(R.id.name);
         number = (TextView) findViewById(R.id.number);
@@ -35,7 +42,7 @@ public class ProfileActivity extends NavigationDrawer {
         emailid.setText(pref.getString("email", ""));
         name.setText(fullname);
         number.setText(pref.getString("phone", ""));
-        set();
+
 
     }
 
@@ -44,5 +51,13 @@ public class ProfileActivity extends NavigationDrawer {
         super.onPause();
         // closing transition animations
 
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+
+        if (menuItem.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 }
