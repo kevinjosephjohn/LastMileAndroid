@@ -1,5 +1,6 @@
 package com.example.lastmile;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +12,9 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,8 +22,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dd.CircularProgressButton;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +38,21 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +66,8 @@ public class CarStatus extends NavigationDrawer {
     Context context;
     float numberXOffset;
     Typeface regular, bold, light;
+    String id;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +75,7 @@ public class CarStatus extends NavigationDrawer {
         // overridePendingTransition(R.anim.activity_open_translate,
         // R.anim.activity_close_scale);
         Intent intent = getIntent();
-        String id = intent.getStringExtra("id");
+        id = intent.getStringExtra("id");
         String drivername = intent.getStringExtra("drivername");
         Double driver_lat = Double.parseDouble(intent.getStringExtra("lat"));
         Double driver_lng = Double.parseDouble(intent.getStringExtra("lng"));
@@ -236,7 +258,7 @@ public class CarStatus extends NavigationDrawer {
 
     public void showDialog(final Context context) {
 
-        final Dialog dialog = new Dialog(context);
+        dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.cancel_dialog);
         dialog.setCancelable(false);
@@ -246,11 +268,10 @@ public class CarStatus extends NavigationDrawer {
 
             @Override
             public void onClick(View arg0) {
-                dialog.dismiss();
-                Intent intent = new Intent(CarStatus.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                        | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+
+
+                new CancelRide().execute();
+
 
             }
 
@@ -267,5 +288,72 @@ public class CarStatus extends NavigationDrawer {
         dialog.show();
 
     }
+
+    private class CancelRide extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO Auto-generated method stub
+            // Create a new HttpClient and Post Header
+
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(
+                    "http://128.199.134.210/api/request/status.php");
+            String responseBody = null;
+
+
+            try {
+                // Add your data
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("type", "cancel"));
+                nameValuePairs.add(new BasicNameValuePair("id", id));
+
+
+
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                // Execute HTTP Post Request
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity entity = response.getEntity();
+                responseBody = EntityUtils.toString(entity);
+                Log.i("Response", responseBody);
+                // Log.i("Parameters", params[0]);
+
+            } catch (ClientProtocolException e) {
+
+
+
+                // TODO Auto-generated catch block
+            } catch (IOException e) {
+
+                // TODO Auto-generated catch block
+            }
+            return responseBody;
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            dialog.dismiss();
+            Intent intent = new Intent(CarStatus.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            startActivity(intent);
+
+
+        }
+
+
+    }
+
+
 
 }
