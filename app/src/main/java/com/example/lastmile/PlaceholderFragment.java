@@ -415,7 +415,7 @@ public class PlaceholderFragment extends Fragment implements
 
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(
-                    "http://128.199.134.210/api/api.php");
+                    "http://128.199.134.210/api/cars/");
             String responseBody = null;
             String lat = params[0];
             String lng = params[1];
@@ -517,6 +517,7 @@ public class PlaceholderFragment extends Fragment implements
 
                             // TODO Auto-generated method stub
                             mMap.setOnCameraChangeListener(null);
+                            mMap.getUiSettings().setAllGesturesEnabled(false);
                             Log.i(lat, lng);
                             new pickuprequest().execute(lat, lng);
 
@@ -556,7 +557,7 @@ public class PlaceholderFragment extends Fragment implements
 
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(
-                    "http://128.199.134.210/api/request/oldrequest.php");
+                    "http://128.199.134.210/api/request/");
             String responseBody = null;
 
             try {
@@ -567,6 +568,7 @@ public class PlaceholderFragment extends Fragment implements
                 nameValuePairs.add(new BasicNameValuePair("lng", params[1]));
                 nameValuePairs.add(new BasicNameValuePair("uid", pref
                         .getString("uid", "null")));
+                nameValuePairs.add(new BasicNameValuePair("type", "request"));
 
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 

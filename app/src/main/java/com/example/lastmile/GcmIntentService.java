@@ -12,12 +12,15 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Nishanth on 24-11-2014.
  */
 public class GcmIntentService extends IntentService {
     public static final int NOTIFICATION_ID = 1;
-    static final String TAG = "GCMDemo";
+    static final String TAG = "Client";
     NotificationCompat.Builder builder;
     private NotificationManager mNotificationManager;
 
@@ -79,6 +82,15 @@ public class GcmIntentService extends IntentService {
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
                         .setContentText(msg);
+
+        try {
+            JSONObject data = new JSONObject(msg);
+            JSONObject driver_details = data.getJSONObject("price");
+            String id = data.getString("price");
+            Log.i(TAG, id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());

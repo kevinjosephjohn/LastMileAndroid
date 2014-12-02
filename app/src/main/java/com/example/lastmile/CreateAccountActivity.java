@@ -182,13 +182,13 @@ public class CreateAccountActivity extends Activity {
 
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(
-                    "http://128.199.134.210/api/auth/index.php");
+                    "http://128.199.134.210/api/authenticate/");
             String responseBody = null;
 
             try {
                 // Add your data
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-                nameValuePairs.add(new BasicNameValuePair("tag", "register"));
+                nameValuePairs.add(new BasicNameValuePair("type", "register"));
                 nameValuePairs.add(new BasicNameValuePair("fname", params[0]));
                 nameValuePairs.add(new BasicNameValuePair("lname", params[1]));
                 nameValuePairs.add(new BasicNameValuePair("phone", params[2]));

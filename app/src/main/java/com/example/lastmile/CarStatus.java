@@ -304,7 +304,7 @@ public class CarStatus extends NavigationDrawer {
 
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(
-                    "http://128.199.134.210/api/request/status.php");
+                    "http://128.199.134.210/api/request/");
             String responseBody = null;
 
 

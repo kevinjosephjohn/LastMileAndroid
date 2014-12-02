@@ -149,13 +149,13 @@ public class LoginActivity extends Activity {
         protected String doInBackground(String... params) {
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(
-                    "http://128.199.134.210/api/auth/index.php");
+                    "http://128.199.134.210/api/authenticate/");
             String responseBody = null;
 
             try {
                 // Add your data
                 List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-                nameValuePairs.add(new BasicNameValuePair("tag", "login"));
+                nameValuePairs.add(new BasicNameValuePair("type", "login"));
 
                 nameValuePairs.add(new BasicNameValuePair("email", params[0]));
                 nameValuePairs
