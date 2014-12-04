@@ -83,7 +83,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBErgRTuPbexNFuVFD37aNkrbP4u6rmoMA" />
+            android:value="AIzaSyDTig17xZX7cjCRNhXRg__JlowIPFm0jNA" />
 
         <receiver
             android:name=".GcmBroadcastReceiver"

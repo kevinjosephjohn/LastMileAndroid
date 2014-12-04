@@ -7,11 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -91,7 +95,8 @@ public class PlaceholderFragment extends Fragment implements
     Editor editor;
     OnCameraChangeListener listener;
     private GoogleMap mMap;
-
+    int pickup_button_click = 0;
+    private pickuprequest mTask;
     public PlaceholderFragment() {
     }
 
@@ -106,6 +111,8 @@ public class PlaceholderFragment extends Fragment implements
         mLocationClient = new LocationClient(context, this, this);
         final View rootView = inflater.inflate(R.layout.fragment_main,
                 container, false);
+        mTask = new pickuprequest();
+
         //Create a Card
         Card card = new Card(context);
 
@@ -126,6 +133,7 @@ public class PlaceholderFragment extends Fragment implements
         mMap.getUiSettings().setRotateGesturesEnabled(false);
         current_location = (ImageView) rootView
                 .findViewById(R.id.current_location);
+
         listener = new OnCameraChangeListener() {
 
             @Override
@@ -145,7 +153,7 @@ public class PlaceholderFragment extends Fragment implements
                 if (!check.isConnected(context))
                     showDialog(context, lat, lng);
                 else
-                    new pickup().execute(lat, lng);
+                    new pickup().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,lat, lng);
 
                 // Toast.makeText(getApplicationContext(), pinLocation,
                 // Toast.LENGTH_SHORT).show();
@@ -216,6 +224,7 @@ public class PlaceholderFragment extends Fragment implements
                         lng = lng_start;
                         new pickup().execute(lat_start, lng_start);
 
+
                     }
                 }.start();
 
@@ -230,6 +239,11 @@ public class PlaceholderFragment extends Fragment implements
     @Override
     public void onLocationChanged(Location location) {
         // TODO Auto-generated method stub
+        mCurrentLocation = location;
+
+
+
+
 
     }
 
@@ -405,6 +419,8 @@ public class PlaceholderFragment extends Fragment implements
             // ETA.setText("");
             pickup_button.setIndeterminateProgressMode(true);
             pickup_button.setProgress(50);
+            pickup_button.setIconProgress(null);
+
 
         }
 
@@ -510,16 +526,39 @@ public class PlaceholderFragment extends Fragment implements
                     pickup_button.setProgress(0);
                     pin_red.setVisibility(View.GONE);
                     pin_green.setVisibility(View.VISIBLE);
+
                     pickup_button.setOnClickListener(new OnClickListener() {
 
                         @Override
-                        public void onClick(View arg0) {
-
+                        public void onClick(View v) {
                             // TODO Auto-generated method stub
-                            mMap.setOnCameraChangeListener(null);
-                            mMap.getUiSettings().setAllGesturesEnabled(false);
-                            Log.i(lat, lng);
-                            new pickuprequest().execute(lat, lng);
+                            pickup_button_click++;
+
+
+                            if (pickup_button_click == 1) {
+                                //Single click
+
+                                mMap.setOnCameraChangeListener(null);
+                                mMap.getUiSettings().setAllGesturesEnabled(false);
+                                Log.i(lat, lng);
+
+                                current_location.setVisibility(View.GONE);
+                                mTask = new pickuprequest();
+                               mTask.execute(lat,lng);
+                            } else if (pickup_button_click == 2) {
+                                //Double click
+                                pickup_button_click = 0;
+                                mMap.getUiSettings().setAllGesturesEnabled(true);
+                                mMap.setOnCameraChangeListener(listener);
+                                mTask.cancel(true);
+
+
+                                pickup_button.setProgress(0);
+
+
+
+                            }
+
 
                         }
                     });
@@ -549,7 +588,8 @@ public class PlaceholderFragment extends Fragment implements
                     R.id.pickup_button);
             pickup_button.setIndeterminateProgressMode(true);
             pickup_button.setProgress(50);
-            pickup_button.setClickable(false);
+            pickup_button.setIconProgress(getResources().getDrawable( R.drawable.ic_action_cancel));
+
         }
 
         @Override
@@ -579,6 +619,9 @@ public class PlaceholderFragment extends Fragment implements
                 Log.i("Response", responseBody);
                 // Log.i("Parameters", params[0]);
 
+
+
+
             } catch (ClientProtocolException e) {
 
                 // TODO Auto-generated catch block
@@ -586,7 +629,9 @@ public class PlaceholderFragment extends Fragment implements
 
                 // TODO Auto-generated catch block
             }
+
             return responseBody;
+
             // TODO Auto-generated method stub
 
         }
@@ -637,6 +682,9 @@ public class PlaceholderFragment extends Fragment implements
             }
         }
 
+
+
     }
+
 
 }
