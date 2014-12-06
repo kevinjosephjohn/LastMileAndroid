@@ -115,7 +115,7 @@
                     android:id="@+id/call"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/call"
+                    fab:fab_icon="@drawable/call"
                     fab:fab_addButtonColorNormal="#3cb1d8"
                     fab:fab_addButtonColorPressed="#ff00719b" />
 
@@ -123,7 +123,7 @@
                     android:id="@+id/cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_cancel"
+                    fab:fab_icon="@drawable/action_cancel"
                     fab:fab_addButtonColorNormal="#3cb1d8"
                     fab:fab_addButtonColorPressed="#ff00719b" />
 

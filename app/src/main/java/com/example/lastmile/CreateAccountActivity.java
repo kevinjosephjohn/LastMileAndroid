@@ -155,6 +155,7 @@ public class CreateAccountActivity extends Activity {
                             dialog.show();
                         } else {
                             dialog.dismiss();
+                            create_button.setProgress(0);
                             recreate();
                         }
 

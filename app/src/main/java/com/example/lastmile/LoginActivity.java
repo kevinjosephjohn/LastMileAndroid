@@ -123,6 +123,7 @@ public class LoginActivity extends Activity {
                             dialog.show();
                         } else {
                             dialog.dismiss();
+                            login_button.setProgress(0);
                             recreate();
                         }
 
