@@ -72,6 +72,7 @@ public class CarStatus extends NavigationDrawer {
     Marker car;
     Handler handler;
     Runnable runnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,7 +184,7 @@ public class CarStatus extends NavigationDrawer {
         mMap.getUiSettings().setRotateGesturesEnabled(false);
         mMap.getUiSettings().setTiltGesturesEnabled(false);
         CameraPosition cameraPosition = new CameraPosition.Builder()
-        .target(new LatLng(client_lat, client_lng)).zoom(17).build();
+                .target(new LatLng(client_lat, client_lng)).zoom(17).build();
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         List<Marker> markers = new ArrayList<Marker>();
@@ -328,7 +329,6 @@ public class CarStatus extends NavigationDrawer {
                 nameValuePairs.add(new BasicNameValuePair("id", id));
 
 
-
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
                 // Execute HTTP Post Request
@@ -340,7 +340,6 @@ public class CarStatus extends NavigationDrawer {
                 handler.removeCallbacks(runnable);
 
             } catch (ClientProtocolException e) {
-
 
 
                 // TODO Auto-generated catch block
@@ -367,6 +366,7 @@ public class CarStatus extends NavigationDrawer {
 
 
     }
+
     private class LocationCar extends AsyncTask<String, Integer, String> {
 
         @Override
@@ -393,7 +393,6 @@ public class CarStatus extends NavigationDrawer {
                 nameValuePairs.add(new BasicNameValuePair("id", id));
 
 
-
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
                 // Execute HTTP Post Request
@@ -404,7 +403,6 @@ public class CarStatus extends NavigationDrawer {
                 // Log.i("Parameters", params[0]);
 
             } catch (ClientProtocolException e) {
-
 
 
                 // TODO Auto-generated catch block
@@ -424,7 +422,7 @@ public class CarStatus extends NavigationDrawer {
                 JSONObject data = new JSONObject(result);
                 car.remove();
                 car = mMap.addMarker(new MarkerOptions().position(
-                        new LatLng(Double.parseDouble(data.getString("lat")), Double.parseDouble(data.getString("lng")))).icon(
+                        new LatLng(Double.parseDouble(data.getString("lat")), Double.parseDouble(data.getString("lng")))).rotation(Float.valueOf(data.getString("rot"))).icon(
                         BitmapDescriptorFactory.fromResource(R.drawable.car)));
 
             } catch (JSONException e) {
