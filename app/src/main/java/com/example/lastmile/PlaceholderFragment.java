@@ -97,6 +97,7 @@ public class PlaceholderFragment extends Fragment implements
     private GoogleMap mMap;
     int pickup_button_click = 0;
     private pickuprequest mTask;
+
     public PlaceholderFragment() {
     }
 
@@ -153,7 +154,7 @@ public class PlaceholderFragment extends Fragment implements
                 if (!check.isConnected(context))
                     showDialog(context, lat, lng);
                 else
-                    new pickup().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,lat, lng);
+                    new pickup().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, lat, lng);
 
                 // Toast.makeText(getApplicationContext(), pinLocation,
                 // Toast.LENGTH_SHORT).show();
@@ -240,9 +241,6 @@ public class PlaceholderFragment extends Fragment implements
     public void onLocationChanged(Location location) {
         // TODO Auto-generated method stub
         mCurrentLocation = location;
-
-
-
 
 
     }
@@ -544,7 +542,27 @@ public class PlaceholderFragment extends Fragment implements
 
                                 current_location.setVisibility(View.GONE);
                                 mTask = new pickuprequest();
-                               mTask.execute(lat,lng);
+                                mTask.execute(lat, lng);
+                                new CountDownTimer(30000, 1000) {
+
+                                    @Override
+                                    public void onTick(long millisUntilFinished) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinish() {
+                                        pickup_button_click = 0;
+                                        mMap.getUiSettings().setAllGesturesEnabled(true);
+                                        mMap.setOnCameraChangeListener(listener);
+                                        mTask.cancel(true);
+
+
+                                        pickup_button.setProgress(0);
+
+                                    }
+                                }.start();
+
                             } else if (pickup_button_click == 2) {
                                 //Double click
                                 pickup_button_click = 0;
@@ -554,7 +572,6 @@ public class PlaceholderFragment extends Fragment implements
 
 
                                 pickup_button.setProgress(0);
-
 
 
                             }
@@ -588,7 +605,7 @@ public class PlaceholderFragment extends Fragment implements
                     R.id.pickup_button);
             pickup_button.setIndeterminateProgressMode(true);
             pickup_button.setProgress(50);
-            pickup_button.setIconProgress(getResources().getDrawable( R.drawable.ic_action_cancel));
+            pickup_button.setIconProgress(getResources().getDrawable(R.drawable.ic_action_cancel));
 
         }
 
@@ -618,8 +635,6 @@ public class PlaceholderFragment extends Fragment implements
                 responseBody = EntityUtils.toString(entity);
                 Log.i("Response", responseBody);
                 // Log.i("Parameters", params[0]);
-
-
 
 
             } catch (ClientProtocolException e) {
@@ -681,7 +696,6 @@ public class PlaceholderFragment extends Fragment implements
                 e.printStackTrace();
             }
         }
-
 
 
     }

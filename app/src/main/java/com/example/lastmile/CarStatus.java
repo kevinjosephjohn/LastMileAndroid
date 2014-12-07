@@ -179,9 +179,9 @@ public class CarStatus extends NavigationDrawer {
         mMap.getUiSettings().setZoomControlsEnabled(false);
         mMap.getUiSettings().setRotateGesturesEnabled(false);
         mMap.getUiSettings().setTiltGesturesEnabled(false);
-        // CameraPosition cameraPosition = new CameraPosition.Builder()
-        // .target(new LatLng(client_lat, client_lng)).zoom(14).build();
-        // mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+        .target(new LatLng(client_lat, client_lng)).zoom(17).build();
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         List<Marker> markers = new ArrayList<Marker>();
         Marker car = mMap.addMarker(new MarkerOptions().position(
@@ -193,28 +193,28 @@ public class CarStatus extends NavigationDrawer {
         markers.add(car);
         markers.add(user);
 
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
-        for (Marker marker : markers) {
-            builder.include(marker.getPosition());
-        }
-        final LatLngBounds bounds = builder.build();
-
-        OnCameraChangeListener listener = new OnCameraChangeListener() {
-
-            @Override
-            public void onCameraChange(CameraPosition position) {
-
-                // TODO Auto-generated method stub
-                int padding = 100; // offset from edges of the map in pixels
-                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,
-                        padding);
-                mMap.moveCamera(cu);
-                mMap.setOnCameraChangeListener(null);
-
-            }
-        };
-        mMap.setOnCameraChangeListener(listener);
+//        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+//
+//        for (Marker marker : markers) {
+//            builder.include(marker.getPosition());
+//        }
+//        final LatLngBounds bounds = builder.build();
+//
+//        OnCameraChangeListener listener = new OnCameraChangeListener() {
+//
+//            @Override
+//            public void onCameraChange(CameraPosition position) {
+//
+//                // TODO Auto-generated method stub
+//                int padding = 100; // offset from edges of the map in pixels
+//                CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds,
+//                        padding);
+//                mMap.moveCamera(cu);
+//                mMap.setOnCameraChangeListener(null);
+//
+//            }
+//        };
+//        mMap.setOnCameraChangeListener(listener);
 
         set();
 
