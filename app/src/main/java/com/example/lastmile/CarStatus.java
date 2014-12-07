@@ -1,5 +1,7 @@
 package com.example.lastmile;
 
+import android.animation.ObjectAnimator;
+import android.animation.TypeEvaluator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -16,6 +18,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.Property;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -420,10 +423,10 @@ public class CarStatus extends NavigationDrawer {
 
             try {
                 JSONObject data = new JSONObject(result);
-                car.remove();
-                car = mMap.addMarker(new MarkerOptions().position(
-                        new LatLng(Double.parseDouble(data.getString("lat")), Double.parseDouble(data.getString("lng")))).rotation(Float.valueOf(data.getString("rot"))).icon(
-                        BitmapDescriptorFactory.fromResource(R.drawable.car)));
+                LatLngInterpolator test = new LatLngInterpolator.LinearFixed();
+                LatLng myLocation = new LatLng(Double.parseDouble(data.getString("lat")), Double.parseDouble(data.getString("lng")));
+                animateMarkerToICS(car,myLocation,test);
+                car.setRotation(Float.valueOf(data.getString("rot")));
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -433,6 +436,19 @@ public class CarStatus extends NavigationDrawer {
         }
 
 
+    }
+
+    static void animateMarkerToICS(Marker marker, LatLng finalPosition, final LatLngInterpolator latLngInterpolator) {
+        TypeEvaluator<LatLng> typeEvaluator = new TypeEvaluator<LatLng>() {
+            @Override
+            public LatLng evaluate(float fraction, LatLng startValue, LatLng endValue) {
+                return latLngInterpolator.interpolate(fraction, startValue, endValue);
+            }
+        };
+        Property<Marker, LatLng> property = Property.of(Marker.class, LatLng.class, "position");
+        ObjectAnimator animator = ObjectAnimator.ofObject(marker, property, typeEvaluator, finalPosition);
+        animator.setDuration(3000);
+        animator.start();
     }
 
 
