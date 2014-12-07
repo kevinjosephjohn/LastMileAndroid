@@ -14,6 +14,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -68,7 +69,9 @@ public class CarStatus extends NavigationDrawer {
     Typeface regular, bold, light;
     String id;
     Dialog dialog;
-
+    Marker car;
+    Handler handler;
+    Runnable runnable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,14 +187,14 @@ public class CarStatus extends NavigationDrawer {
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         List<Marker> markers = new ArrayList<Marker>();
-        Marker car = mMap.addMarker(new MarkerOptions().position(
+        car = mMap.addMarker(new MarkerOptions().position(
                 new LatLng(driver_lat, driver_lng)).icon(
                 BitmapDescriptorFactory.fromResource(R.drawable.car)));
         Marker user = mMap.addMarker(new MarkerOptions().position(
                 new LatLng(client_lat, client_lng)).icon(
                 BitmapDescriptorFactory.fromBitmap(mutableBitmap)));
-        markers.add(car);
-        markers.add(user);
+//        markers.add(car);
+//        markers.add(user);
 
 //        LatLngBounds.Builder builder = new LatLngBounds.Builder();
 //
@@ -223,6 +226,16 @@ public class CarStatus extends NavigationDrawer {
         // Log.i("lat", lat);
         // Log.i("lng", lng);
         // Log.i("duration", duration);
+
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                new LocationCar().execute();
+
+                handler.postDelayed(this, 5000);
+            }
+        };
+        runnable.run();
 
     }
 
@@ -324,6 +337,7 @@ public class CarStatus extends NavigationDrawer {
                 responseBody = EntityUtils.toString(entity);
                 Log.i("Response", responseBody);
                 // Log.i("Parameters", params[0]);
+                handler.removeCallbacks(runnable);
 
             } catch (ClientProtocolException e) {
 
@@ -353,7 +367,75 @@ public class CarStatus extends NavigationDrawer {
 
 
     }
+    private class LocationCar extends AsyncTask<String, Integer, String> {
 
+        @Override
+        protected void onPreExecute() {
+
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO Auto-generated method stub
+            // Create a new HttpClient and Post Header
+
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(
+                    "http://128.199.134.210/api/request/");
+            String responseBody = null;
+
+
+            try {
+                // Add your data
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("type", "location"));
+                nameValuePairs.add(new BasicNameValuePair("id", id));
+
+
+
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                // Execute HTTP Post Request
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity entity = response.getEntity();
+                responseBody = EntityUtils.toString(entity);
+                Log.i("Response", responseBody);
+                // Log.i("Parameters", params[0]);
+
+            } catch (ClientProtocolException e) {
+
+
+
+                // TODO Auto-generated catch block
+            } catch (IOException e) {
+
+                // TODO Auto-generated catch block
+            }
+            return responseBody;
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+            try {
+                JSONObject data = new JSONObject(result);
+                car.remove();
+                car = mMap.addMarker(new MarkerOptions().position(
+                        new LatLng(Double.parseDouble(data.getString("lat")), Double.parseDouble(data.getString("lng")))).icon(
+                        BitmapDescriptorFactory.fromResource(R.drawable.car)));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+
+    }
 
 
 }

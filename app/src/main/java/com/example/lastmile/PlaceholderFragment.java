@@ -543,7 +543,7 @@ public class PlaceholderFragment extends Fragment implements
 
                                 current_location.setVisibility(View.GONE);
                                 mTask = new pickuprequest();
-                                mTask.execute(lat, lng);
+                                mTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR,lat, lng);
                                 new CountDownTimer(30000, 1000) {
 
                                     @Override
@@ -566,6 +566,7 @@ public class PlaceholderFragment extends Fragment implements
 
                             } else if (pickup_button_click == 2) {
                                 //Double click
+                                new CancelRide().execute(lat,lng);
                                 pickup_button_click = 0;
                                 mMap.getUiSettings().setAllGesturesEnabled(true);
                                 mMap.setOnCameraChangeListener(listener);
@@ -701,6 +702,67 @@ public class PlaceholderFragment extends Fragment implements
 
 
     }
+    private class CancelRide extends AsyncTask<String, Integer, String> {
+
+        @Override
+        protected void onPreExecute() {
+
+
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO Auto-generated method stub
+            // Create a new HttpClient and Post Header
+
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(
+                    "http://128.199.134.210/api/request/cancel.php");
+            String responseBody = null;
+
+
+            try {
+                // Add your data
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+                nameValuePairs.add(new BasicNameValuePair("lat", params[0]));
+                nameValuePairs.add(new BasicNameValuePair("lng", params[1]));
+
+
+
+
+                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+                // Execute HTTP Post Request
+                HttpResponse response = httpclient.execute(httppost);
+                HttpEntity entity = response.getEntity();
+                responseBody = EntityUtils.toString(entity);
+                Log.i("Response", responseBody);
+                // Log.i("Parameters", params[0]);
+
+            } catch (ClientProtocolException e) {
+
+
+
+                // TODO Auto-generated catch block
+            } catch (IOException e) {
+
+                // TODO Auto-generated catch block
+            }
+            return responseBody;
+
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+
+
+
+        }
+
+
+    }
+
 
 
 }
