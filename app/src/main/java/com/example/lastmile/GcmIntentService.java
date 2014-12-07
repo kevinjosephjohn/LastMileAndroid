@@ -69,30 +69,38 @@ public class GcmIntentService extends IntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(String msg) {
-        mNotificationManager = (NotificationManager)
-                this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, MainActivity.class), 0);
 
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.logo)
-                        .setContentTitle("Last Mile")
-                        .setStyle(new NotificationCompat.BigTextStyle()
-                                .bigText(msg))
-                        .setContentText(msg);
-
-        try {
-            JSONObject data = new JSONObject(msg);
-            JSONObject driver_details = data.getJSONObject("price");
-            String id = data.getString("price");
-            Log.i(TAG, id);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(msg.equalsIgnoreCase("your trip has been cancelled"))
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
-
-        mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
+//        mNotificationManager = (NotificationManager)
+//                this.getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+//                new Intent(this, MainActivity.class), 0);
+//
+//        NotificationCompat.Builder mBuilder =
+//                new NotificationCompat.Builder(this)
+//                        .setSmallIcon(R.drawable.logo)
+//                        .setContentTitle("Last Mile")
+//                        .setStyle(new NotificationCompat.BigTextStyle()
+//                                .bigText(msg))
+//                        .setContentText(msg);
+//
+//        try {
+//            JSONObject data = new JSONObject(msg);
+//            JSONObject driver_details = data.getJSONObject("price");
+//            String id = data.getString("price");
+//            Log.i(TAG, id);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//
+//        mBuilder.setContentIntent(contentIntent);
+//        mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
 }

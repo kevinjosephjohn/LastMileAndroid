@@ -97,6 +97,7 @@ public class PlaceholderFragment extends Fragment implements
     private GoogleMap mMap;
     int pickup_button_click = 0;
     private pickuprequest mTask;
+    String street;
 
     public PlaceholderFragment() {
     }
@@ -490,7 +491,7 @@ public class PlaceholderFragment extends Fragment implements
                 JSONArray car_locations = (JSONArray) data.get("cars");
                 int length = car_locations.length();
                 String time = data.getString("eta");
-                String street = data.getString("address");
+                street = data.getString("address");
                 String[] separated = time.split(" ");
                 Log.i("Stree Name", street);
                 Log.i("ETA", time);
@@ -626,6 +627,7 @@ public class PlaceholderFragment extends Fragment implements
                 nameValuePairs.add(new BasicNameValuePair("uid", pref
                         .getString("uid", "null")));
                 nameValuePairs.add(new BasicNameValuePair("type", "request"));
+                nameValuePairs.add(new BasicNameValuePair("rideraddress", street));
 
                 httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
