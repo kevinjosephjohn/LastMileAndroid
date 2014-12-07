@@ -506,8 +506,10 @@ public class PlaceholderFragment extends Fragment implements
                                 .getString("lat"));
                         double longitude = Double.parseDouble(jsonProductObject
                                 .getString("lng"));
+                        float rotation = Float.valueOf(jsonProductObject
+                                .getString("rot"));
 
-                        mMap.addMarker(new MarkerOptions().position(
+                        mMap.addMarker(new MarkerOptions().rotation(rotation).position(
                                 new LatLng(latitude, longitude)).icon(
                                 BitmapDescriptorFactory
                                         .fromResource(R.drawable.car)));
